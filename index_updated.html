@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>One‑Minute Explainer — crafted by Abdulkarim (Clean Poster)</title>
+<meta name="description" content="Paste anything → 30s headline, 90s bullets, 5‑min plan. Private, offline, with clean poster export.">
+<link rel="icon" href="data:,">
+<style>
+  :root{
+    --bg:#070b14; --ink:#eaf2ff; --muted:#9fb3cc;
+    --c1:#63e6ff; --c2:#8b7bff; --c3:#ffd166; --ok:#10b981; --info:#38bdf8;
+    --panel:#0d1423; --panel2:#0b111d; --stroke:rgba(255,255,255,.08);
+  }
+  *{box-sizing:border-box} html,body{height:100%}
+  body{
+    margin:0; color:var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    background:
+      radial-gradient(1200px 700px at 70% -20%, rgba(99,230,255,.16), transparent 70%),
+      radial-gradient(900px 600px at -20% 60%, rgba(139,123,255,.12), transparent 70%),
+      var(--bg);
+  }
+  header{display:flex; align-items:center; gap:14px; padding:18px 18px 8px}
+  .logo{width:44px;height:44px;border-radius:14px;background:conic-gradient(from 180deg, var(--c1), var(--c2), var(--c1));
+        box-shadow:0 12px 36px rgba(99,230,255,.35)}
+  h1{margin:0;font-size:22px;font-weight:900;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:13px}
+  .ribbon{margin-inline-start:auto; padding:8px 12px; border-radius:999px; font-weight:800; font-size:12px;
+    color:#001018; background:linear-gradient(90deg, var(--c3), var(--c1)); border:1px solid rgba(255,255,255,.35)}
+  main{display:grid; grid-template-columns: 520px 1fr; gap:16px; padding:10px 18px 24px}
+  @media (max-width: 1100px){ main{grid-template-columns:1fr} }
+  .card{background:linear-gradient(180deg, rgba(255,255,255,.02), transparent 12%), var(--panel);
+        border:1px solid var(--stroke); border-radius:18px; padding:14px; box-shadow: 0 22px 70px rgba(0,0,0,.35)}
+  textarea{width:100%;min-height:240px;resize:vertical;background:var(--panel2);color:var(--ink);
+           border:1px solid var(--stroke); border-radius:14px;padding:12px;line-height:1.4;font-size:14px}
+  .controls{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; align-items:center}
+  button{border:0;border-radius:12px;padding:10px 14px;font-weight:900;cursor:pointer;
+         background:linear-gradient(180deg,var(--c1),#359bff);color:#00111d;
+         box-shadow:0 10px 30px rgba(99,230,255,.35), inset 0 0 0 1px rgba(255,255,255,.35)}
+  button.secondary{background:linear-gradient(180deg,#263246,#1a2233); color:var(--ink);
+         box-shadow: inset 0 0 0 1px rgba(255,255,255,.08)}
+  .hint{color:var(--muted); font-size:12px; margin-top:6px}
+  .grid{display:grid; grid-template-columns: repeat(3,1fr); gap:12px}
+  .kpi{background:var(--panel2);border-radius:14px;padding:12px;border:1px solid var(--stroke)}
+  .kpi h3{margin:0;font-size:12px;color:var(--muted);font-weight:700}
+  .kpi .val{font-size:15px;margin-top:6px;font-weight:800}
+  select, input[type="checkbox"]{margin-left:6px}
+  .out{display:grid; grid-template-columns:1fr; gap:12px; margin-top:12px}
+  .block{padding:12px;border:1px solid var(--stroke); border-radius:14px; background:var(--panel2)}
+  .block h3{margin:0 0 6px 0; font-size:15px}
+  .ul{padding-inline-start:18px}
+  .sideBy{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
+  .poster{height:420px;border-radius:14px; position:relative; overflow:hidden; border:1px solid var(--stroke); background:#08101c}
+  .poster .title{position:absolute; left:24px; right:24px; top:24px; font-weight:900; font-size:28px; line-height:1.15}
+  .sig{position:absolute; left:24px; bottom:14px; font-size:11px; color:#cde9ff; opacity:.85; background:rgba(0,0,0,.18); padding:4px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.22)}
+  .footer{color:var(--muted); font-size:12px; text-align:center; padding:10px 0 18px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"></div>
+  <div>
+    <h1>One‑Minute Explainer — 30 / 90 / 300</h1>
+    <div class="sub">Paste → Explain → Export. Private & offline. <b>crafted by Abdulkarim</b>.</div>
+  </div>
+  <div class="ribbon">CLEAN POSTER EXPORT</div>
+</header>
+
+<main>
+  <section class="card">
+    <textarea id="input" placeholder="Paste email, notes, or Arabic memo…"></textarea>
+    <div class="controls">
+      <button id="demo">Load Demo</button>
+      <button class="secondary" id="clear">Clear</button>
+      <button id="run">Explain</button>
+      <button class="secondary" id="copy">Copy All</button>
+      <button id="savePoster">Export Poster</button>
+      <span class="hint">Tip: Switch to Arabic and it will format RTL correctly on the poster.</span>
+    </div>
+    <div class="grid" style="margin-top:10px">
+      <div class="kpi"><h3>Language</h3><div class="val" id="lang">–</div></div>
+      <div class="kpi"><h3>Keywords</h3><div class="val" id="keys">–</div></div>
+      <div class="kpi"><h3>Reading Time</h3><div class="val" id="rt">–</div></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="out">
+      <div class="sideBy">
+        <div class="block"><h3>30s Headline</h3><div id="s30">–</div></div>
+        <div class="block"><h3>90s Key Points</h3><div id="s90">–</div></div>
+      </div>
+      <div class="block"><h3>5‑min Plan</h3><div id="s300">–</div></div>
+      <div class="block">
+        <h3>Poster (Live Preview)</h3>
+        <div id="poster" class="poster">
+          <canvas id="pc" width="1200" height="420" style="width:100%;height:100%"></canvas>
+          <div class="title" id="ptitle">—</div>
+          <div class="sig">crafted by Abdulkarim</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="footer">© crafted by Abdulkarim — Clean layout poster with proper wrapping, spacing, and RTL support.</div>
+
+<script>
+// ===== Utilities
+function detectArabic(s){ return /[\\u0600-\\u06FF]/.test(s); }
+function splitSentences(s){ return s.split(/(?<=[\\.\\!\\?…،])\\s+|\\n+/).map(x=>x.trim()).filter(Boolean); }
+function words(s){ return s.toLowerCase().replace(/[^\\p{L}\\p{N}\\s]/gu," ").split(/\\s+/).filter(Boolean); }
+
+function keywordScores(ws, isAr){
+  const stopEN = new Set("the a an and or of for to in on at with within without by from as is are was were be been being will can should could would might may not than then that this these those it its it's i you he she they we our your their them".split(" "));
+  const stopAR = new Set("في من على عن إلى او أو و ثم أن إن كان تكون يكون كانت يكونون هي هو هم نحن أنا انت أنتم انتن لها له لهم هذا هذه ذلك الذين التي اذا لقد قد تم يتم تكون ايضا فقط جدا مع بدون ضمن بين حيث كما لكن لأن على كل أي اي بعض لدى عند الذي التي".split(" "));
+  const stop = isAr ? stopAR : stopEN;
+  const map = new Map(), bigrams=[];
+  for(let i=0;i<ws.length;i++){
+    const w=ws[i]; if(!stop.has(w) && (w.length>2 || /^\\d+$/.test(w))) map.set(w,(map.get(w)||0)+1);
+    if(i<ws.length-1){
+      const b=ws[i]+" "+ws[i+1]; if(!b.split(" ").some(x=>stop.has(x))) map.set(b,(map.get(b)||0)+0.6);
+    }
+    if(map.has(w)) map.set(w, map.get(w) + (1/(1+i/ws.length))*0.2);
+  }
+  return map;
+}
+
+function rankSentences(sents, freq){
+  const cues = /(in summary|in short|key|important|therefore|we propose|we recommend|goal|objective|risk|issue|solution|impact|metric|timeline|budget|scope|milestone|deliverable|plan|strategy|proposal|خلاصة|باختصار|هدف|مؤشر|خطة|حل|أثر|مخاطر|جدول|ميزانية|نطاق|تسليم)/i;
+  return sents.map((s,i)=>{
+    const ws = words(s); const base = ws.reduce((a,w)=>a+(freq.get(w)||0),0);
+    const cue = cues.test(s) ? 2.0 : 0; const pos = 1.2/(1+i*0.12); const len = Math.sqrt(ws.length+1);
+    return {i,s,score:(base*pos + cue)/len};
+  }).sort((a,b)=>b.score-a.score);
+}
+
+function summarize(raw){
+  const text = raw.trim(); if(!text) return null;
+  const isAr = detectArabic(text);
+  const sents = splitSentences(text);
+  const ws = words(text);
+  const freq = keywordScores(ws, isAr);
+  const ranked = rankSentences(sents, freq);
+
+  let headline = (ranked[0]?.s || sents[0] || "").replace(/\\s+/g," ").trim();
+  const idx = ranked.slice(0, Math.min(5, Math.max(3, ranked.length))).map(r=>r.i).sort((a,b)=>a-b);
+  const bullets = idx.map(i=>sents[i]);
+
+  const problem = sents[0] || headline;
+  const why = (sents.find(x=>/(impact|cost|time|risk|quality|customer|benefit|value|تحسين|تكلفة|زمن|مخاطر|جودة|عميل)/i.test(x)) || sents[1] || headline);
+  const plan = (isAr
+    ? ["• تحديد الهدف والمخرجات","• تقسيم المهمة إلى خطوات","• توزيع المسؤوليات والوقت","• قياس التقدم بالمؤشرات"]
+    : ["• Define goals & outputs","• Break into steps","• Assign owners & timeline","• Track progress with KPIs"]);
+
+  return {isAr, headline, bullets, problem, why, plan};
+}
+
+// ===== UI wiring
+const langEl = document.getElementById('lang');
+const keysEl = document.getElementById('keys');
+const rtEl = document.getElementById('rt');
+
+function render(res, text){
+  const ws = words(text);
+  langEl.textContent = res.isAr ? "Arabic / العربية" : "English";
+  const keys = Array.from(keywordScores(ws, res.isAr).keys()).slice(0,6);
+  keysEl.textContent = keys.join(", ") || "–";
+  const wpm = 220, mins = Math.max(0.1, ws.length/wpm);
+  rtEl.textContent = (mins<1? Math.round(mins*60)+" sec" : mins.toFixed(1)+" min");
+
+  document.getElementById('s30').textContent = res.headline;
+  document.getElementById('s90').innerHTML = "<ul class='ul'>" + res.bullets.map(b=>"<li>"+b+"</li>").join("") + "</ul>";
+  const deep = (res.isAr
+    ? `<b>المشكلة</b>: ${res.problem}<br><br><b>لماذا يهم؟</b>: ${res.why}<br><br><b>الخطة</b><br>${res.plan.join("<br>")}`
+    : `<b>Problem</b>: ${res.problem}<br><br><b>Why it matters</b>: ${res.why}<br><br><b>Plan</b><br>${res.plan.join("<br>")}`
+  );
+  document.getElementById('s300').innerHTML = deep;
+
+  drawPoster(res);
+}
+
+// ===== Clean poster drawing with layout + wrapping + RTL
+function drawPoster(res){
+  const c = document.getElementById('pc'); const ctx = c.getContext('2d');
+  const w=c.width,h=c.height; ctx.clearRect(0,0,w,h);
+
+  // Background gradient
+  const g = ctx.createLinearGradient(0,0,w,h);
+  g.addColorStop(0,'#0e1729'); g.addColorStop(1,'#0a1220');
+  ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+
+  // Header bar
+  const hb = ctx.createLinearGradient(0,0,w,0);
+  hb.addColorStop(0,'#63e6ff'); hb.addColorStop(1,'#8b7bff');
+  ctx.fillStyle = hb; ctx.fillRect(0,0,w,8);
+
+  // Title
+  const isAr = res.isAr;
+  ctx.save();
+  ctx.direction = isAr ? 'rtl' : 'ltr';
+  ctx.textAlign = isAr ? 'right' : 'left';
+  ctx.fillStyle = '#eaf2ff';
+  ctx.font = '900 40px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial';
+  const pad = 32;
+  const titleX = isAr ? w-pad : pad;
+  drawWrappedText(ctx, res.headline, titleX, 56, w-2*pad, 44, isAr);
+
+  // Sections grid (2 columns)
+  const colW = (w-2*pad-20)/2;
+  const leftX  = isAr ? w-pad-colW : pad;
+  const rightX = isAr ? pad : w-pad-colW;
+  const startY = 120;
+
+  // 90s bullets (left)
+  drawSection(ctx, leftX, startY, colW, '90s', res.bullets, isAr);
+
+  // Plan (right)
+  drawSection(ctx, rightX, startY, colW, isAr?'الخطة':'Plan', res.plan, isAr);
+
+  // Footer sig
+  ctx.font = '12px system-ui, Segoe UI, Roboto'; ctx.fillStyle = 'rgba(255,255,255,.75)';
+  ctx.textAlign = 'left'; ctx.direction = 'ltr';
+  ctx.fillText('crafted by Abdulkarim', pad, h-14);
+  ctx.restore();
+}
+
+function drawSection(ctx, x, y, w, title, items, isAr){
+  // card
+  ctx.save();
+  ctx.fillStyle = 'rgba(255,255,255,0.06)';
+  roundRect(ctx, x, y, w, 240, 12); ctx.fill();
+
+  // title badge
+  const bx = isAr ? x+w-14-80 : x+14;
+  ctx.fillStyle = '#38bdf8';
+  roundRect(ctx, bx, y+12, 80, 24, 8); ctx.fill();
+  ctx.fillStyle = '#00111c';
+  ctx.font = 'bold 13px system-ui, Segoe UI, Roboto';
+  ctx.textAlign = 'center'; ctx.direction='ltr';
+  ctx.fillText(title, bx+40, y+29);
+
+  // bullets
+  ctx.fillStyle = '#eaf2ff';
+  ctx.textAlign = isAr ? 'right' : 'left';
+  ctx.direction = isAr ? 'rtl' : 'ltr';
+  ctx.font = '15px system-ui, Segoe UI, Roboto';
+  const lineH = 22;
+  let yy = y+52;
+  const mark = isAr ? '• ' : '• ';
+  for(const it of items){
+    yy = drawWrappedText(ctx, mark+it, isAr? x+w-16 : x+16, yy, w-32, lineH, isAr);
+  }
+
+  ctx.restore();
+}
+
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+
+function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, isAr){
+  const words = text.split(/\\s+/);
+  let line = '';
+  for(let n=0;n<words.length;n++){
+    const test = line + (line? ' ' : '') + words[n];
+    const w = ctx.measureText(test).width;
+    if(w > maxWidth && n>0){
+      ctx.fillText(line, x, y);
+      line = words[n];
+      y += lineHeight;
+    }else{
+      line = test;
+    }
+  }
+  if(line) ctx.fillText(line, x, y);
+  return y + lineHeight;
+}
+
+// ===== Events
+document.getElementById('run').onclick = ()=>{
+  const raw = document.getElementById('input').value;
+  if(!raw.trim()){ alert('Paste some text first.'); return; }
+  const res = summarize(raw);
+  render(res, raw);
+};
+document.getElementById('demo').onclick = ()=>{
+  const demo = `Project Alpha launch delayed 2 weeks due to a supplier issue.
+We need an updated timeline, stakeholder notice, and a backup vendor plan by Monday.`;
+  document.getElementById('input').value = demo;
+  const res = summarize(demo);
+  render(res, demo);
+};
+document.getElementById('clear').onclick = ()=>{
+  document.getElementById('input').value="";
+  ["lang","keys","rt","s30","s90","s300"].forEach(id=>document.getElementById(id).textContent="–");
+  const ctx = document.getElementById('pc').getContext('2d'); ctx.clearRect(0,0,1200,420);
+};
+document.getElementById('copy').onclick = ()=>{
+  const a = "30s:\n"+document.getElementById('s30').textContent
+    +"\n\n90s:\n"+document.getElementById('s90').innerText
+    +"\n\n5-min plan:\n"+document.getElementById('s300').innerText
+    +"\n\n— crafted by Abdulkarim";
+  navigator.clipboard.writeText(a).then(()=>alert("Copied!"));
+};
+document.getElementById('savePoster').onclick = ()=>{
+  const a = document.createElement('a'); a.download = "explainer_poster_clean.png";
+  a.href = document.getElementById('pc').toDataURL("image/png"); a.click();
+};
+</script>
+</body>
+</html>
