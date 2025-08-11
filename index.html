@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>One-Minute Explainer — crafted by Abdulkarim (Pro)</title>
+<style>
+  :root{
+    --bg:#070b14; --ink:#eaf2ff; --muted:#9fb3cc;
+    --c1:#63e6ff; --c2:#8b7bff; --c3:#ffd166;
+    --panel:#0d1423; --panel2:#0b111d; --stroke:rgba(255,255,255,.08);
+  }
+  *{box-sizing:border-box} html,body{height:100%}
+  body{
+    margin:0; color:var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    background:
+      radial-gradient(1200px 700px at 70% -20%, rgba(99,230,255,.16), transparent 70%),
+      radial-gradient(900px 600px at -20% 60%, rgba(139,123,255,.12), transparent 70%),
+      var(--bg);
+  }
+  #weave{position:fixed; inset:0; z-index:-1; filter:blur(28px) saturate(105%) opacity(.9)}
+  header{display:flex; align-items:center; gap:14px; padding:18px 18px 8px}
+  .logo{width:44px;height:44px;border-radius:14px;background:conic-gradient(from 180deg, var(--c1), var(--c2), var(--c1));
+        box-shadow:0 12px 36px rgba(99,230,255,.35)}
+  h1{margin:0;font-size:22px;font-weight:900;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:13px}
+  .ribbon{margin-inline-start:auto; padding:8px 12px; border-radius:999px; font-weight:800; font-size:12px;
+    color:#001018; background:linear-gradient(90deg, var(--c3), var(--c1)); border:1px solid rgba(255,255,255,.35)}
+  main{display:grid; grid-template-columns: 520px 1fr; gap:16px; padding:10px 18px 24px}
+  @media (max-width: 1100px){ main{grid-template-columns:1fr} }
+  .card{background:linear-gradient(180deg, rgba(255,255,255,.02), transparent 12%), var(--panel);
+        border:1px solid var(--stroke); border-radius:18px; padding:14px; box-shadow: 0 22px 70px rgba(0,0,0,.35)}
+  textarea{width:100%;min-height:240px;resize:vertical;background:var(--panel2);color:var(--ink);
+           border:1px solid var(--stroke); border-radius:14px;padding:12px;line-height:1.35;font-size:14px}
+  .controls{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; align-items:center}
+  button{border:0;border-radius:12px;padding:10px 14px;font-weight:900;cursor:pointer;
+         background:linear-gradient(180deg,var(--c1),#359bff);color:#00111d;
+         box-shadow:0 10px 30px rgba(99,230,255,.35), inset 0 0 0 1px rgba(255,255,255,.35)}
+  button.secondary{background:linear-gradient(180deg,#263246,#1a2233); color:var(--ink);
+         box-shadow: inset 0 0 0 1px rgba(255,255,255,.08)}
+  .hint{color:var(--muted); font-size:12px; margin-top:6px}
+  .grid{display:grid; grid-template-columns: repeat(3,1fr); gap:12px}
+  .kpi{background:var(--panel2);border-radius:14px;padding:12px;border:1px solid var(--stroke)}
+  .kpi h3{margin:0;font-size:12px;color:var(--muted);font-weight:700}
+  .kpi .val{font-size:15px;margin-top:6px;font-weight:800}
+  select, input[type="checkbox"]{margin-left:6px}
+  .out{display:grid; grid-template-columns:1fr; gap:12px; margin-top:12px}
+  .block{padding:12px;border:1px solid var(--stroke); border-radius:14px; background:var(--panel2)}
+  .block h3{margin:0 0 6px 0; font-size:15px}
+  .ul{padding-inline-start:18px}
+  .sideBy{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
+  .poster{height:360px;border-radius:14px; position:relative; overflow:hidden; border:1px solid var(--stroke)}
+  .poster .title{position:absolute; inset:auto 18px 18px 18px; font-weight:900; font-size:28px; line-height:1.1; text-shadow:0 6px 30px rgba(0,0,0,.35)}
+  .sig{position:absolute; inset:auto 12px 12px auto; font-size:11px; color:#cde9ff; opacity:.9; background:rgba(0,0,0,.25); padding:4px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.25)}
+  .footer{color:var(--muted); font-size:12px; text-align:center; padding:10px 0 18px}
+  .mini{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<canvas id="weave"></canvas>
+<header>
+  <div class="logo"></div>
+  <div>
+    <h1>One-Minute Explainer — 30 / 90 / 300</h1>
+    <div class="sub">Zero-login summarizer. Unique visuals. Works offline. <b>crafted by Abdulkarim</b>.</div>
+  </div>
+  <div class="ribbon">CRAFTED BY ABDULKARIM</div>
+</header>
+
+<main>
+  <section class="card">
+    <textarea id="input" placeholder="Paste email, brief, requirements, notes, or article snippet…"></textarea>
+    <div class="controls">
+      <button id="demo">Load Demo</button>
+      <button class="secondary" id="clear">Clear</button>
+      <button id="run">Explain</button>
+      <button class="secondary" id="copy">Copy All</button>
+      <button id="savePoster">Export Poster</button>
+      <button id="snapshot">Download Snapshot</button>
+      <span class="mini">PII Scrub</span><input type="checkbox" id="scrub">
+      <select id="tone">
+        <option value="neutral" selected>Tone: Neutral</option>
+        <option value="exec">Tone: Executive</option>
+        <option value="casual">Tone: Casual</option>
+        <option value="arabic">النبرة: عربية مختصرة</option>
+      </select>
+      <select id="preset">
+        <option value="none" selected>Preset: General</option>
+        <option value="eng">Preset: Engineering</option>
+        <option value="fin">Preset: Finance</option>
+        <option value="gov">Preset: Government Services</option>
+        <option value="hr">Preset: HR</option>
+      </select>
+    </div>
+    <div class="hint">Adds value beyond chat: offline & private; consistent 30/90/300; branded poster; action checklist + CSV; PII scrub; discipline presets; snapshot sharing.</div>
+    <div class="grid" style="margin-top:10px">
+      <div class="kpi"><h3>Language</h3><div class="val" id="lang">–</div></div>
+      <div class="kpi"><h3>Keywords</h3><div class="val" id="keys">–</div></div>
+      <div class="kpi"><h3>Reading Time</h3><div class="val" id="rt">–</div></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="out">
+      <div class="sideBy">
+        <div class="block"><h3><span class="mini">30s</span> Headline</h3><div id="s30">–</div></div>
+        <div class="block"><h3><span class="mini">90s</span> Key Points</h3><div id="s90">–</div></div>
+      </div>
+      <div class="sideBy">
+        <div class="block"><h3><span class="mini">300s</span> Deep Dive</h3><div id="s300">–</div></div>
+        <div class="block">
+          <h3>Action Items</h3>
+          <div id="acts">–</div>
+          <div class="controls">
+            <button class="secondary" id="copyActs">Copy Checklist</button>
+            <button class="secondary" id="csvActs">Export CSV</button>
+          </div>
+        </div>
+      </div>
+      <div class="block">
+        <h3>Poster</h3>
+        <div id="poster" class="poster">
+          <canvas id="pc" width="1200" height="360" style="width:100%;height:100%"></canvas>
+          <div class="title" id="ptitle">—</div>
+          <div class="sig">crafted by Abdulkarim</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="footer">© crafted by Abdulkarim — Private, offline-friendly, branded, and practical.</div>
+
+<script>
+// Aurora background
+(function(){ const c=document.getElementById('weave'),x=c.getContext('2d'); function fit(){c.width=innerWidth;c.height=innerHeight;} addEventListener('resize',fit,{passive:true}); fit(); let t=0; (function loop(){t+=.012; const w=c.width,h=c.height; x.clearRect(0,0,w,h); for(let i=0;i<7;i++){ const g=x.createRadialGradient(w*(0.15+0.12*i+0.05*Math.sin(t+i)),h*(0.2+0.18*Math.cos(t*0.8+i)),40+30*i,w*(0.2+0.15*i+0.05*Math.cos(t*0.7+i)),h*(0.25+0.2*Math.sin(t*0.9+i)),320+70*i); g.addColorStop(0,`hsla(${200+12*i},90%,60%,.14)`); g.addColorStop(1,`hsla(${280+9*i},90%,60%,0)`); x.fillStyle=g; x.beginPath(); x.arc(w/2,h/2,400+80*i,0,Math.PI*2); x.fill(); } requestAnimationFrame(loop); })(); })();
+
+function detectArabic(s){ return /[\u0600-\u06FF]/.test(s); }
+function splitSentences(s){ return s.split(/(?<=[\.!\?…،])\s+|\n+/).map(x=>x.trim()).filter(Boolean); }
+function words(s){ return s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu," ").split(/\s+/).filter(Boolean); }
+
+function scrubPII(text){
+  text = text.replace(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi,"[email]");
+  text = text.replace(/(\+?\d[\d\s\-()]{6,}\d)/g,"[phone]");
+  text = text.replace(/\b784-?\d{4}-?\d{7}-?\d\b/g,"[emirates-id]");
+  text = text.replace(/\bAE\d{2}[A-Z0-9]{8,30}\b/gi,"[iban]");
+  text = text.replace(/\b(?:\d[ -]*?){13,19}\b/g,"[id]");
+  return text;
+}
+
+function keywordScores(ws, isAr){
+  const stopEN = new Set("the a an and or of for to in on at with within without by from as is are was were be been being will can should could would might may not than then that this these those it its it's i you he she they we our your their them".split(" "));
+  const stopAR = new Set("في من على عن إلى او أو و ثم أن إن كان تكون يكون كانت يكونون هي هو هم نحن أنا انت أنتم انتن لها له لهم هذا هذه ذلك الذين التي اذا لقد قد تم يتم تكون ايضا فقط جدا مع بدون ضمن بين حيث كما لكن لأن على كل أي اي بعض لدى عند الذي التي".split(" "));
+  const stop = isAr ? stopAR : stopEN;
+  const map = new Map();
+  for(let i=0;i<ws.length;i++){
+    const w=ws[i];
+    if(!stop.has(w) && (w.length>2 || /^\\d+$/.test(w))){
+      map.set(w,(map.get(w)||0)+1);
+      if(i<ws.length-1){
+        const b=ws[i]+" "+ws[i+1];
+        if(!b.split(" ").some(x=>stop.has(x))) map.set(b,(map.get(b)||0)+0.6);
+      }
+    }
+    if(map.has(w)) map.set(w, map.get(w) + (1/(1+i/ws.length))*0.2);
+  }
+  return map;
+}
+
+function rankSentences(sents, freq){
+  const cues = /(in summary|in short|key|important|therefore|we propose|we recommend|goal|objective|risk|issue|solution|impact|metric|timeline|budget|scope|milestone|deliverable|plan|strategy|proposal|خلاصة|باختصار|هدف|مؤشر|خطة|حل|أثر|مخاطر|جدول|ميزانية|نطاق|تسليم)/i;
+  return sents.map((s,i)=>{
+    const ws = words(s); const base = ws.reduce((a,w)=>a+(freq.get(w)||0),0);
+    const cue = cues.test(s) ? 2.0 : 0; const pos = 1.2/(1+i*0.12); const len = Math.sqrt(ws.length+1);
+    return {i,s,score:(base*pos + cue)/len};
+  }).sort((a,b)=>b.score-a.score);
+}
+
+function extractActions(sents, isAr){
+  const acts=[];
+  const reEN = /\\b(we|let's|please|todo:|to do|assign|prepare|review|send|draft|design|build|test|deploy|ship|call|email|follow up|follow-up|schedule|summarize|update|approve|escalate|investigate|train|meet|align|decide|budget|quote|purchase|migrate|configure|validate|measure)\\b/i;
+  const reAR = /(نقوم|سنقوم|يرجى|الرجاء|فضلاً|تابع|تواصل|ارسال|إرسال|مراجعة|اعتماد|تحضير|تصميم|اختبار|نشر|تركيب|جدولة|اجتماع|تدريب|تحديث|قرار|شراء|تسعير|ترقية|ترحيل|تهيئة|التحقق|القياس)/i;
+  sents.forEach(s=>{
+    if((!isAr && reEN.test(s)) || (isAr && reAR.test(s))){
+      acts.push(s.replace(/^[-•\\s]+/,"").trim());
+    }
+  });
+  if(acts.length===0) acts.push(isAr? "— لا توجد عناصر إجراء واضحة؛ أضف فعل أمر مثل: يرجى / سنقوم / مراجعة." : "— No clear action items found; include verbs like: please, review, schedule.");
+  return acts;
+}
+
+const METRICS = {
+  none: [],
+  eng: ["Cycle time","Defect rate","Deployment frequency","Lead time for changes"],
+  fin: ["Budget variance","AR days","Run-rate vs forecast","Unit economics"],
+  gov: ["SLA adherence","Queue time","First-contact resolution","Citizen satisfaction"],
+  hr:  ["Time-to-hire","Offer acceptance","Onboarding completion","Attrition"]
+};
+
+function summarize(raw, tone, preset){
+  let text = raw.trim();
+  if(!text) return null;
+  if(document.getElementById('scrub').checked) text = scrubPII(text);
+  const isAr = detectArabic(text);
+  const sents = splitSentences(text);
+  const ws = words(text);
+  const freq = keywordScores(ws, isAr);
+  const ranked = rankSentences(sents, freq);
+
+  let headline = (ranked[0]?.s || sents[0] || "").replace(/\\s+/g," ").trim();
+  if(tone==="exec" && !isAr){ headline = headline.replace(/^we/i,"We").replace(/\\.$/,"")+" — Decision & Next Steps"; }
+  else if(tone==="casual" && !isAr){ headline = "TL;DR: "+headline.replace(/\\.$/,""); }
+  else if(tone==="arabic" && isAr){ headline = "الخلاصة: "+headline; }
+
+  const idx = ranked.slice(0, Math.min(6, Math.max(4, ranked.length))).map(r=>r.i).sort((a,b)=>a-b);
+  const bullets = idx.map(i=>sents[i]);
+
+  const problem = sents[0] || headline;
+  const why = (sents.find(x=>/(impact|cost|time|risk|quality|customer|benefit|value|تحسين|تكلفة|زمن|مخاطر|جودة|عميل)/i.test(x)) || sents[1] || headline);
+
+  const basePlan = isAr
+    ? ["• تحديد الهدف والمخرجات","• تقسيم المهمة إلى خطوات","• توزيع المسؤوليات والوقت","• قياس التقدم بالمؤشرات"]
+    : ["• Define goals & outputs","• Break into steps","• Assign owners & timeline","• Track progress with KPIs"];
+  const metrics = METRICS[preset] || [];
+  const plan = basePlan.concat(metrics.length ? (isAr?["• مؤشرات "+metrics.join(" / ")] : ["• Metrics: "+metrics.join(" / ")]) : []);
+
+  const actions = extractActions(sents, isAr);
+
+  return {isAr, sents, ws, freq, headline, bullets, problem, why, plan, actions};
+}
+
+const langEl = document.getElementById('lang');
+const keysEl = document.getElementById('keys');
+const rtEl = document.getElementById('rt');
+
+function render(res){
+  if(!res) return;
+  langEl.textContent = res.isAr ? "Arabic / العربية" : "English";
+  const keys = Array.from(new Map(Array.from(keywordScores(res.ws, res.isAr))).keys()).slice(0,6);
+  keysEl.textContent = keys.join(", ") || "–";
+  const wpm = 220, mins = Math.max(0.1, res.ws.length/wpm);
+  rtEl.textContent = (mins<1? Math.round(mins*60)+" sec" : mins.toFixed(1)+" min");
+
+  document.getElementById('s30').textContent = clean(res.headline, res.isAr);
+  document.getElementById('s90').innerHTML = "<ul class='ul'>" + res.bullets.map(b=>"<li>"+clean(b,res.isAr)+"</li>").join("") + "</ul>";
+  const deep = (res.isAr
+    ? `<b>المشكلة</b>: ${clean(res.problem,true)}<br><br><b>لماذا يهم؟</b>: ${clean(res.why,true)}<br><br><b>الخطة</b><br>${res.plan.join("<br>")}`
+    : `<b>Problem</b>: ${clean(res.problem,false)}<br><br><b>Why it matters</b>: ${clean(res.why,false)}<br><br><b>Plan</b><br>${res.plan.join("<br>")}`
+  );
+  document.getElementById('s300').innerHTML = deep;
+
+  const acts = res.actions;
+  document.getElementById('acts').innerHTML = "<ul class='ul'>" + acts.map(a=>"<li>"+a+"</li>").join("") + "</ul>";
+
+  drawPoster(clean(res.headline, res.isAr));
+}
+
+function clean(s, isAr){
+  let t = (s||"").replace(/\\(.*?\\)/g,"").replace(/\\s+/g," ").trim();
+  return isAr ? t : (t.charAt(0).toUpperCase()+t.slice(1));
+}
+
+function drawPoster(title){
+  const c = document.getElementById('pc'); const ctx = c.getContext('2d');
+  const w=c.width,h=c.height;
+  let seed = 0; for(let i=0;i<title.length;i++){ seed = (seed*131 + title.charCodeAt(i))>>>0; }
+  function rnd(){ seed = (seed*1664525+1013904223)>>>0; return seed/0xffffffff; }
+  const g1 = ctx.createLinearGradient(0,0,w,h);
+  g1.addColorStop(0, `hsl(${200+Math.floor(rnd()*60)} 85% 60%)`);
+  g1.addColorStop(1, `hsl(${260+Math.floor(rnd()*60)} 85% 60%)`);
+  ctx.clearRect(0,0,w,h); ctx.fillStyle = g1; ctx.fillRect(0,0,w,h);
+  ctx.globalAlpha=.08; for(let i=-h; i<w; i+=20){ ctx.fillStyle="#fff"; ctx.fillRect(i,0,1.5,h); } ctx.globalAlpha=1;
+  ctx.save(); ctx.strokeStyle="rgba(255,255,255,.55)"; ctx.lineWidth=2.2; roundedSquircle(ctx, 12, 12, w-24, h-24, 42); ctx.stroke(); ctx.restore();
+  ctx.save(); ctx.font = "900 62px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"; ctx.textAlign="center"; ctx.textBaseline="middle";
+  ctx.shadowColor="rgba(0,0,0,.35)"; ctx.shadowBlur=24; ctx.fillStyle="rgba(0,0,0,.55)"; ctx.fillText(title, w/2, h/2); ctx.restore();
+  document.getElementById('ptitle').textContent = title;
+}
+function roundedSquircle(ctx, x,y,w,h,r){
+  const k = 0.551915024494 * r;
+  ctx.beginPath(); ctx.moveTo(x+r, y); ctx.lineTo(x+w-r, y);
+  ctx.bezierCurveTo(x+w-r+k, y, x+w, y+r-k, x+w, y+r);
+  ctx.lineTo(x+w, y+h-r);
+  ctx.bezierCurveTo(x+w, y+h-r+k, x+w-r+k, y+h, x+w-r, y+h);
+  ctx.lineTo(x+r, y+h);
+  ctx.bezierCurveTo(x+r-k, y+h, x, y+h-r+k, x, y+h-r);
+  ctx.lineTo(x, y+r);
+  ctx.bezierCurveTo(x, y+r-k, x+r-k, y, x+r, y);
+  ctx.closePath();
+}
+
+// Clipboard/CSV/Snapshot
+document.getElementById('copy').onclick = ()=>{
+  const a = "30s:\n"+document.getElementById('s30').textContent
+    +"\n\n90s:\n"+document.getElementById('s90').innerText
+    +"\n\n300s:\n"+document.getElementById('s300').innerText
+    +"\n\n— crafted by Abdulkarim";
+  navigator.clipboard.writeText(a).then(()=>alert("Copied!"));
+};
+document.getElementById('csvActs').onclick = ()=>{
+  const items = Array.from(document.querySelectorAll('#acts li')).map(li=>li.innerText.replace(/\\n/g," ").trim());
+  const csv = "Action\\n"+items.join("\\n");
+  const blob = new Blob([csv], {type:"text/csv"});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download="actions.csv"; a.click();
+};
+document.getElementById('copyActs').onclick = ()=>{
+  const items = Array.from(document.querySelectorAll('#acts li')).map(li=>"- "+li.innerText).join("\\n");
+  navigator.clipboard.writeText(items).then(()=>alert("Checklist copied!"));
+};
+document.getElementById('savePoster').onclick = ()=>{
+  const a = document.createElement('a'); a.download = "explainer_poster_abdulkarim.png";
+  a.href = document.getElementById('pc').toDataURL("image/png"); a.click();
+};
+document.getElementById('snapshot').onclick = ()=>{
+  const title = document.getElementById('s30').textContent || "One-Minute Explainer";
+  const s90 = document.getElementById('s90').innerHTML;
+  const s300 = document.getElementById('s300').innerHTML;
+  const acts = document.getElementById('acts').innerHTML;
+  const img = document.getElementById('pc').toDataURL("image/png");
+  const snap = `<!DOCTYPE html><html lang="en"><meta charset="utf-8"><title>${title}</title>
+  <style>body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial;background:#0b1220;color:#eaf2ff;margin:0;padding:20px}
+  h1{font-size:20px} .card{background:#0d1423;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px;margin:10px 0}
+  .mini{font-size:12px;color:#9fb3cc} img{max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,.08)}</style>
+  <h1>${title} <span class="mini">— crafted by Abdulkarim</span></h1>
+  <div class="card"><b>90s</b><div>${s90}</div></div>
+  <div class="card"><b>300s</b><div>${s300}</div></div>
+  <div class="card"><b>Action Items</b><div>${acts}</div></div>
+  <div class="card"><b>Poster</b><br><img src="${img}"/></div>`;
+  const blob = new Blob([snap], {type:"text/html"});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = "snapshot_abdulkarim.html"; a.click();
+};
+
+document.getElementById('run').onclick = ()=>{
+  const raw = document.getElementById('input').value;
+  const tone = document.getElementById('tone').value;
+  const preset = document.getElementById('preset').value;
+  const res = summarize(raw, tone, preset);
+  if(!res){ alert("Paste text to explain."); return; }
+  render(res);
+};
+document.getElementById('demo').onclick = ()=>{
+  const demo = `We need a universal way to compress messy notes into clear summaries for any team.
+Today, updates are long and inconsistent; people miss risks and delay decisions.
+Goal: produce a 30-second headline, 90-second bullets, and a 5-minute plan with metrics — in English or Arabic.
+Must be useful for engineering, finance, HR, students, and ops. Include keywords, action items, and a clean poster for sharing.
+Please prepare a draft by Thursday, review with the team, and schedule a decision call.`;
+  document.getElementById('input').value = demo;
+  document.getElementById('run').click();
+};
+document.getElementById('clear').onclick = ()=>{
+  document.getElementById('input').value="";
+  ["lang","keys","rt","s30","s90","s300","ptitle"].forEach(id=>document.getElementById(id).textContent="–");
+  const ctx = document.getElementById('pc').getContext('2d'); ctx.clearRect(0,0,1200,360);
+};
+</script>
+</body>
+</html>
